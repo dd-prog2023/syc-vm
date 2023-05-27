@@ -400,15 +400,20 @@ class Runtime extends EventEmitter {
          */
         this.origin = null;
 
+        this._coordinateSkinId = null;
+        this._coordinateDrawableId = null;
         this._initScratchLink();
     }
 
+    static stageNativeSize = [480, 360];
+    
     /**
      * Width of the stage, in pixels.
      * @const {number}
      */
     static get STAGE_WIDTH () {
-        return 480;
+        // return 480;
+        return Runtime.stageNativeSize[0];
     }
 
     /**
@@ -416,6 +421,35 @@ class Runtime extends EventEmitter {
      * @const {number}
      */
     static get STAGE_HEIGHT () {
+        // return 360;
+        return Runtime.stageNativeSize[1];
+    }
+
+    /**
+     * @const {number}
+     */
+    static set STAGE_WIDTH (value) {
+        Runtime.stageNativeSize[0] = value;
+    }
+
+    /**
+     * @const {number}
+     */
+    static set STAGE_HEIGHT (value) {
+        Runtime.stageNativeSize[1] = value;
+    }
+
+    /**
+     * @const {number}
+     */
+    static get OFFICIAL_STAGE_WIDTH () {
+        return 480;
+    }
+
+    /**
+     * @const {number}
+     */
+    static get OFFICIAL_STAGE_HEIGHT () {
         return 360;
     }
 
@@ -1598,6 +1632,38 @@ class Runtime extends EventEmitter {
      */
     attachAudioEngine (audioEngine) {
         this.audioEngine = audioEngine;
+    }
+
+    /**
+     */
+     _createCoordinate () {
+        this._coordinateSkinId = this.renderer.createCoordinateSkin();
+        this._coordinateDrawableId = this.renderer.createDrawable(StageLayering.BACKGROUND_LAYER);
+        this.renderer.updateDrawableSkinId(this._coordinateDrawableId, this._coordinateSkinId);
+    }
+
+    _setCoordinateVisible (visible) {
+        this.renderer.setCoordinateVisible(this._coordinateDrawableId, visible);
+    }
+
+    /**
+     */
+    triggerCoordinate (visible = false) {
+        if (!this.renderer) {
+            return;
+        }
+
+        if (this._coordinateSkinId === null) {
+            this._createCoordinate();
+        } else {
+            this._setCoordinateVisible(visible);
+        }
+    }
+
+    /**
+     */
+    setCoordinateFontSize (fontSize) {
+        this.renderer.updateCoordinateSkinFontSize(this._coordinateSkinId, fontSize);
     }
 
     /**
