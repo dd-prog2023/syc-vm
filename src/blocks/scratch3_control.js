@@ -31,6 +31,7 @@ class Scratch3ControlBlocks {
             control_wait: this.wait,
             control_wait_until: this.waitUntil,
             control_if: this.if,
+            control_if_elseif_else:this.ifElseifElse,
             control_if_else: this.ifElse,
             control_stop: this.stop,
             control_create_clone_of: this.createClone,
@@ -127,6 +128,29 @@ class Scratch3ControlBlocks {
             util.startBranch(1, false);
         }
     }
+
+    // *************************
+// 定义elseIf逻辑操作
+    ifElseifElse (args, util) {
+        delete args.mutation;
+        let condition_keys = Object.keys(args);
+        let i = 0;
+        for (i = 0; i < condition_keys.length; i ++ ) {
+            let key = condition_keys[i];
+            if (args[key]) {
+                let index = parseInt(key.substring(2));
+                util.startBranch(index, false);
+                break;
+            }
+        }
+        if (i === condition_keys.length) {
+            util.startBranch(condition_keys.length + 1, false);
+        }
+    }
+
+    // *************************
+
+
 
     ifElse (args, util) {
         const condition = Cast.toBoolean(args.CONDITION);
