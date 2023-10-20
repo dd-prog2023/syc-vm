@@ -424,6 +424,7 @@ class Scratch3VideoSensingBlocks {
                 default: 'Video Sensing',
                 description: 'Label for the video sensing extension category'
             }),
+            color1: "#7ebdde",
             blockIconURI: blockIconURI,
             menuIconURI: menuIconURI,
             blocks: [

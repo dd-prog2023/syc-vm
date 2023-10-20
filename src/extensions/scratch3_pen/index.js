@@ -289,6 +289,7 @@ class Scratch3PenBlocks {
                 default: 'Pen',
                 description: 'Label for the pen extension category'
             }),
+            color1: "#ff8c00",
             blockIconURI: blockIconURI,
             blocks: [
                 {

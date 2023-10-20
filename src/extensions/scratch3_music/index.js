@@ -760,6 +760,7 @@ class Scratch3MusicBlocks {
                 default: 'Music',
                 description: 'Label for the Music extension category'
             }),
+            color1: "#ce73d6",
             menuIconURI: menuIconURI,
             blockIconURI: blockIconURI,
             blocks: [
